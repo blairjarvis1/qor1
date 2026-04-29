@@ -488,6 +488,8 @@
     #booking-sidebar      { display: none !important; }
     .booking-nav          { display: none !important; }
     .booking-body         { padding-right: 320px; }
+    #booking-steps        { min-width: 0; }
+    .progress-bar         { padding-right: 320px; }
 
     .booking-basket {
       position: fixed;
@@ -533,6 +535,103 @@
       flex-shrink: 0;
     }
     .booking-basket__step-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--s1); }
+
+    /* ── Section headings ── */
+    .section-heading {
+      font-family: var(--serif);
+      font-size: var(--t-3xl);
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: var(--s2);
+      line-height: 1.1;
+    }
+
+    /* ── Filter pill tabs ── */
+    .filter-tabs { display: flex; gap: var(--s2); flex-wrap: wrap; margin-bottom: var(--s6); }
+    .filter-tab {
+      padding: var(--s2) var(--s5);
+      border-radius: 100px;
+      font-family: var(--ui);
+      font-size: var(--t-xs);
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: none;
+      background: var(--cloud);
+      color: var(--stone);
+      transition: background 0.15s, color 0.15s;
+    }
+    .filter-tab.is-active { background: var(--ink); color: var(--white); }
+    .filter-tab:hover:not(.is-active) { background: var(--sand-mid); }
+
+    /* ── Room cards — full-width rows ── */
+    .room-grid { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--border); }
+    .room-card {
+      border: none !important;
+      border-bottom: 1px solid var(--border) !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      flex-direction: row;
+      align-items: center;
+      padding: 0;
+      gap: 0;
+      background: transparent;
+    }
+    .room-card:hover  { background: var(--parchment); box-shadow: none !important; border-color: var(--border) !important; }
+    .room-card.is-selected { background: var(--sage-pale) !important; border-color: var(--border) !important; border-width: 1px !important; box-shadow: none !important; }
+    .room-card__image-wrap { flex-shrink: 0; width: 210px; height: 158px; overflow: hidden; }
+    .room-card__image-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .room-card__info { flex: 1; padding: var(--s5) var(--s6); align-self: center; }
+    .room-card__badge { min-height: 0; padding: 0; margin-bottom: var(--s2); }
+    .room-card__body { padding: 0; flex: unset; }
+    .room-card__name { font-size: var(--t-2xl); margin-bottom: var(--s1); }
+    .room-card__footer { display: none !important; }
+    .room-card__price-area { flex-shrink: 0; text-align: right; padding: 0 var(--s5); }
+    .room-price-main { font-family: var(--serif); font-size: var(--t-2xl); font-weight: 400; color: var(--ink); white-space: nowrap; }
+    .room-price-main span { font-family: var(--sans); font-size: var(--t-sm); color: var(--stone); font-weight: 400; margin-left: 4px; }
+    .room-price-sub { font-size: var(--t-xs); color: var(--stone); margin-top: 3px; text-align: right; }
+
+    /* ── Extras cards — full-width rows ── */
+    .extras-grid { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--border); }
+    .extra-card {
+      border: none !important;
+      border-bottom: 1px solid var(--border) !important;
+      border-radius: 0 !important;
+      padding: 0;
+      gap: 0;
+      align-items: center;
+      background: transparent;
+    }
+    .extra-card.is-added { background: var(--sage-pale) !important; }
+    .extra-card__thumb { flex-shrink: 0; width: 180px; height: 130px; object-fit: cover; border-radius: 0; display: block; }
+    .extra-card__info { flex: 1; padding: var(--s5) var(--s6); }
+    .extra-card__name { font-family: var(--serif); font-size: var(--t-xl); font-weight: 400; color: var(--ink); margin-bottom: var(--s1); }
+    .extra-card__desc { font-size: var(--t-sm); color: var(--stone); line-height: 1.5; }
+    .extra-card__price-area { flex-shrink: 0; padding: 0 var(--s5); text-align: right; }
+    .extra-price-main { font-family: var(--serif); font-size: var(--t-2xl); font-weight: 400; color: var(--ink); white-space: nowrap; }
+
+    /* ── Select / Add icon button ── */
+    .select-icon-btn {
+      flex-shrink: 0;
+      width: 52px;
+      height: 52px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      margin-right: var(--s5);
+    }
+    .select-icon-btn:hover { color: var(--sage); }
+    .select-icon-btn .icon-minus { display: none; }
+    .room-card.is-selected  .select-icon-btn .icon-plus  { display: none; }
+    .room-card.is-selected  .select-icon-btn .icon-minus { display: block; }
+    .extra-card.is-added    .select-icon-btn .icon-plus  { display: none; }
+    .extra-card.is-added    .select-icon-btn .icon-minus { display: block; }
 
   </style>
 </head>
@@ -1018,7 +1117,7 @@
 
           <!-- ── Number of Guests ─────────────────────────────────────────── -->
           <div style="margin-top: var(--s10); padding-top: var(--s8); border-top: 1px solid var(--border);">
-            <h2 style="font-family: var(--serif); font-size: var(--t-xl); font-weight: 400; color: var(--ink); margin-bottom: var(--s2);">Who is attending?</h2>
+            <h2 class="section-heading">Who is attending?</h2>
             <p style="font-size: var(--t-sm); color: var(--stone); margin-bottom: var(--s6);">Prices are per person. Select how many guests are attending.</p>
             <div class="guest-type-grid" style="grid-template-columns: 1fr 1fr 1fr;">
               <div class="guest-type-card is-active" data-type="solo">
@@ -1048,141 +1147,148 @@
 
           <!-- ── Choose Your Room ──────────────────────────────────────────── -->
           <div style="margin-top: var(--s10); padding-top: var(--s8); border-top: 1px solid var(--border);">
-            <h2 style="font-family: var(--serif); font-size: var(--t-xl); font-weight: 400; color: var(--ink); margin-bottom: var(--s2);">Choose your room</h2>
-            <p style="font-size: var(--t-sm); color: var(--stone); margin-bottom: var(--s6);">All rooms are en-suite and include the full retreat programme. Select the option that suits you best.</p>
+            <h2 class="section-heading">Choose your room</h2>
+            <p style="font-size: var(--t-sm); color: var(--stone); margin-bottom: var(--s5);">All rooms are en-suite and include the full retreat programme. Select the option that suits you best.</p>
+
+            <div class="filter-tabs" id="room-filter-tabs">
+              <button class="filter-tab is-active" onclick="filterRooms('all', this)">All</button>
+              <button class="filter-tab" onclick="filterRooms('shared', this)">Shared</button>
+              <button class="filter-tab" onclick="filterRooms('private', this)">Private</button>
+              <button class="filter-tab" onclick="filterRooms('suite', this)">Suite</button>
+            </div>
+
             <div class="room-grid">
 
               <!-- Room 1 -->
-              <div class="room-card" data-room-id="r1">
-                <div class="room-carousel" data-carousel>
-                  <div class="room-carousel__track">
-                    <img src="images/header_mellulah-yoga-retreats_20240514092216.jpg" alt="Shared Garden Room" class="room-carousel__slide">
-                    <img src="images/header_vale-de-moses.jpg" alt="Shared Garden Room" class="room-carousel__slide">
-                    <img src="images/header_casa-ana_20230628180415.jpg" alt="Shared Garden Room" class="room-carousel__slide">
-                  </div>
-                  <button class="room-carousel__btn room-carousel__btn--prev" aria-label="Previous"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></button>
-                  <button class="room-carousel__btn room-carousel__btn--next" aria-label="Next"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></button>
-                  <div class="room-carousel__dots">
-                    <span class="room-carousel__dot is-active"></span>
-                    <span class="room-carousel__dot"></span>
-                    <span class="room-carousel__dot"></span>
+              <div class="room-card" data-room-id="r1" data-room-type="shared">
+                <div class="room-card__image-wrap">
+                  <img src="images/rooms/room-1.png" alt="Shared Garden Room">
+                </div>
+                <div class="room-card__info">
+                  <div class="room-card__badge"><!-- no badge --></div>
+                  <div class="room-card__body">
+                    <h3 class="room-card__name">Shared Garden Room</h3>
+                    <p class="room-card__type">Twin share · Garden view · En-suite</p>
+                    <div class="room-details-toggle">
+                      <button class="room-details-btn" aria-expanded="false">See room details <svg class="room-details-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+                      <ul class="room-includes-list room-includes-list--collapsible">
+                        <li>Twin beds, Egyptian cotton linen</li>
+                        <li>Garden terrace access</li>
+                        <li>Shared with one other guest</li>
+                        <li>En-suite bathroom with rain shower</li>
+                        <li>All meals &amp; programme included</li>
+                        <li>Lisbon transfers included</li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
-                <div class="room-card__badge"><!-- no badge --></div>
-                <div class="room-card__body">
-                  <h3 class="room-card__name">Shared Garden Room</h3>
-                  <p class="room-card__type">Twin share · Garden view · En-suite</p>
-                  <div class="room-details-toggle">
-                    <button class="room-details-btn" aria-expanded="false">
-                      See room details
-                      <svg class="room-details-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-                    </button>
-                    <ul class="room-includes-list room-includes-list--collapsible">
-                      <li>Twin beds, Egyptian cotton linen</li>
-                      <li>Garden terrace access</li>
-                      <li>Shared with one other guest</li>
-                      <li>En-suite bathroom with rain shower</li>
-                      <li>All meals &amp; programme included</li>
-                      <li>Lisbon transfers included</li>
-                    </ul>
-                  </div>
+                <div class="room-card__price-area">
+                  <div class="room-price-main">£2,195 <span>per person</span></div>
+                  <p class="room-price-sub">25% deposit to secure</p>
                 </div>
-                <div class="room-card__footer">
-                  <div>
-                    <div class="room-card__price">£2,195 <span>per person</span></div>
-                    <p style="font-size: var(--t-xs); color: var(--stone); margin-top: 2px;">25% deposit to secure</p>
-                  </div>
-                  <button class="btn btn--secondary btn--sm">Select</button>
-                </div>
+                <button class="select-icon-btn" aria-label="Select room">
+                  <svg class="icon-plus" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="4" x2="12" y2="20"/><line x1="4" y1="12" x2="20" y2="12"/></svg>
+                  <svg class="icon-minus" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="4" y1="12" x2="20" y2="12"/></svg>
+                </button>
               </div>
 
               <!-- Room 2 -->
-              <div class="room-card" data-room-id="r2">
-                <div class="room-carousel" data-carousel>
-                  <div class="room-carousel__track">
-                    <img src="images/header_casa-ana_20230628180415.jpg" alt="Private Valley Room" class="room-carousel__slide">
-                    <img src="images/header_vale-de-moses.jpg" alt="Private Valley Room" class="room-carousel__slide">
-                    <img src="images/header_les-marguerites.jpg" alt="Private Valley Room" class="room-carousel__slide">
-                  </div>
-                  <button class="room-carousel__btn room-carousel__btn--prev" aria-label="Previous"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></button>
-                  <button class="room-carousel__btn room-carousel__btn--next" aria-label="Next"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></button>
-                  <div class="room-carousel__dots">
-                    <span class="room-carousel__dot is-active"></span>
-                    <span class="room-carousel__dot"></span>
-                    <span class="room-carousel__dot"></span>
+              <div class="room-card" data-room-id="r2" data-room-type="private">
+                <div class="room-card__image-wrap">
+                  <img src="images/rooms/room-2.png" alt="Garden Room">
+                </div>
+                <div class="room-card__info">
+                  <div class="room-card__badge"><!-- no badge --></div>
+                  <div class="room-card__body">
+                    <h3 class="room-card__name">Garden Room</h3>
+                    <p class="room-card__type">Double · Garden view · En-suite</p>
+                    <div class="room-details-toggle">
+                      <button class="room-details-btn" aria-expanded="false">See room details <svg class="room-details-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+                      <ul class="room-includes-list room-includes-list--collapsible">
+                        <li>Double bed, Egyptian cotton linen</li>
+                        <li>Private room with garden outlook</li>
+                        <li>En-suite bathroom with rain shower</li>
+                        <li>All meals &amp; programme included</li>
+                        <li>Lisbon transfers included</li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
-                <div class="room-card__badge"><span class="badge badge--sage">Most popular</span></div>
-                <div class="room-card__body">
-                  <h3 class="room-card__name">Private Valley Room</h3>
-                  <p class="room-card__type">Double or twin · Valley view · En-suite</p>
-                  <div class="room-details-toggle">
-                    <button class="room-details-btn" aria-expanded="false">
-                      See room details
-                      <svg class="room-details-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-                    </button>
-                    <ul class="room-includes-list room-includes-list--collapsible">
-                      <li>King or twin beds — your choice</li>
-                      <li>Private room for solo or couple</li>
-                      <li>Valley view with morning light</li>
-                      <li>En-suite with walk-in shower</li>
-                      <li>All meals &amp; programme included</li>
-                      <li>Denpasar International Airport transfers included</li>
-                    </ul>
-                  </div>
+                <div class="room-card__price-area">
+                  <div class="room-price-main">£2,595 <span>per person</span></div>
+                  <p class="room-price-sub">25% deposit to secure</p>
                 </div>
-                <div class="room-card__footer">
-                  <div>
-                    <div class="room-card__price">£2,895 <span>per person</span></div>
-                    <p style="font-size: var(--t-xs); color: var(--stone); margin-top: 2px;">25% deposit to secure</p>
-                  </div>
-                  <button class="btn btn--secondary btn--sm">Select</button>
-                </div>
+                <button class="select-icon-btn" aria-label="Select room">
+                  <svg class="icon-plus" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="4" x2="12" y2="20"/><line x1="4" y1="12" x2="20" y2="12"/></svg>
+                  <svg class="icon-minus" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="4" y1="12" x2="20" y2="12"/></svg>
+                </button>
               </div>
 
               <!-- Room 3 -->
-              <div class="room-card" data-room-id="r3">
-                <div class="room-carousel" data-carousel>
-                  <div class="room-carousel__track">
-                    <img src="images/header_les-marguerites.jpg" alt="Quinta Suite" class="room-carousel__slide">
-                    <img src="images/header_mellulah-yoga-retreats_20240514092216.jpg" alt="Quinta Suite" class="room-carousel__slide">
-                    <img src="images/header_vale-de-moses.jpg" alt="Quinta Suite" class="room-carousel__slide">
-                  </div>
-                  <button class="room-carousel__btn room-carousel__btn--prev" aria-label="Previous"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></button>
-                  <button class="room-carousel__btn room-carousel__btn--next" aria-label="Next"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></button>
-                  <div class="room-carousel__dots">
-                    <span class="room-carousel__dot is-active"></span>
-                    <span class="room-carousel__dot"></span>
-                    <span class="room-carousel__dot"></span>
+              <div class="room-card" data-room-id="r3" data-room-type="private">
+                <div class="room-card__image-wrap">
+                  <img src="images/rooms/room-3.png" alt="Private Valley Room">
+                </div>
+                <div class="room-card__info">
+                  <div class="room-card__badge"><span class="badge badge--sage">Most popular</span></div>
+                  <div class="room-card__body">
+                    <h3 class="room-card__name">Private Valley Room</h3>
+                    <p class="room-card__type">Double or twin · Valley view · En-suite</p>
+                    <div class="room-details-toggle">
+                      <button class="room-details-btn" aria-expanded="false">See room details <svg class="room-details-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+                      <ul class="room-includes-list room-includes-list--collapsible">
+                        <li>King or twin beds — your choice</li>
+                        <li>Private room for solo or couple</li>
+                        <li>Valley view with morning light</li>
+                        <li>En-suite with walk-in shower</li>
+                        <li>All meals &amp; programme included</li>
+                        <li>Denpasar International Airport transfers included</li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
-                <div class="room-card__badge"><span class="badge badge--stone">Premium</span></div>
-                <div class="room-card__body">
-                  <h3 class="room-card__name">Quinta Suite</h3>
-                  <p class="room-card__type">Junior suite · Private terrace · Deep-soak bath</p>
-                  <div class="room-details-toggle">
-                    <button class="room-details-btn" aria-expanded="false">
-                      See room details
-                      <svg class="room-details-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-                    </button>
-                    <ul class="room-includes-list room-includes-list--collapsible">
-                      <li>Spacious suite with lounge area</li>
-                      <li>Private terrace with valley views</li>
-                      <li>Deep-soak bath + rain shower</li>
-                      <li>All meals &amp; programme included</li>
-                      <li>Lisbon transfers included</li>
-                      <li class="extra">2× private coaching sessions</li>
-                      <li class="extra">In-room aromatherapy welcome kit</li>
-                    </ul>
+                <div class="room-card__price-area">
+                  <div class="room-price-main">£2,895 <span>per person</span></div>
+                  <p class="room-price-sub">25% deposit to secure</p>
+                </div>
+                <button class="select-icon-btn" aria-label="Select room">
+                  <svg class="icon-plus" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="4" x2="12" y2="20"/><line x1="4" y1="12" x2="20" y2="12"/></svg>
+                  <svg class="icon-minus" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="4" y1="12" x2="20" y2="12"/></svg>
+                </button>
+              </div>
+
+              <!-- Room 4 -->
+              <div class="room-card" data-room-id="r4" data-room-type="suite">
+                <div class="room-card__image-wrap">
+                  <img src="images/rooms/room-4.png" alt="Quinta Suite">
+                </div>
+                <div class="room-card__info">
+                  <div class="room-card__badge"><span class="badge badge--stone">Premium</span></div>
+                  <div class="room-card__body">
+                    <h3 class="room-card__name">Quinta Suite</h3>
+                    <p class="room-card__type">Junior suite · Private terrace · Deep-soak bath</p>
+                    <div class="room-details-toggle">
+                      <button class="room-details-btn" aria-expanded="false">See room details <svg class="room-details-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+                      <ul class="room-includes-list room-includes-list--collapsible">
+                        <li>Spacious suite with lounge area</li>
+                        <li>Private terrace with valley views</li>
+                        <li>Deep-soak bath + rain shower</li>
+                        <li>All meals &amp; programme included</li>
+                        <li>Lisbon transfers included</li>
+                        <li class="extra">2× private coaching sessions</li>
+                        <li class="extra">In-room aromatherapy welcome kit</li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
-                <div class="room-card__footer">
-                  <div>
-                    <div class="room-card__price">£3,750 <span>per person</span></div>
-                    <p style="font-size: var(--t-xs); color: var(--stone); margin-top: 2px;">25% deposit to secure</p>
-                  </div>
-                  <button class="btn btn--secondary btn--sm">Select</button>
+                <div class="room-card__price-area">
+                  <div class="room-price-main">£3,750 <span>per person</span></div>
+                  <p class="room-price-sub">25% deposit to secure</p>
                 </div>
+                <button class="select-icon-btn" aria-label="Select room">
+                  <svg class="icon-plus" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="4" x2="12" y2="20"/><line x1="4" y1="12" x2="20" y2="12"/></svg>
+                  <svg class="icon-minus" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="4" y1="12" x2="20" y2="12"/></svg>
+                </button>
               </div>
 
             </div>
@@ -1191,88 +1297,131 @@
           <!-- ── Optional Extras ──────────────────────────────────────────── -->
           <div style="margin-top: var(--s10); padding-top: var(--s8); border-top: 1px solid var(--border);">
             <div style="display: flex; align-items: center; gap: var(--s4); margin-bottom: var(--s2);">
-              <h2 style="font-family: var(--serif); font-size: var(--t-xl); font-weight: 400; color: var(--ink);">Optional Extras</h2>
-              <span class="badge badge--stone" style="font-size: var(--t-xs);">Optional</span>
+              <h2 class="section-heading">Extras</h2>
+              <span class="badge badge--stone" style="font-size: var(--t-xs); align-self: flex-start; margin-top: 6px;">Optional</span>
             </div>
-            <p style="font-size: var(--t-sm); color: var(--stone); margin-bottom: var(--s7);">Enhance your retreat experience. Extras can be added or removed any time before arrival.</p>
+            <p style="font-size: var(--t-sm); color: var(--stone); margin-bottom: var(--s5);">Enhance your retreat experience. Extras can be added or removed any time before arrival.</p>
 
-            <p class="label-caps" style="margin-bottom: var(--s4); color: var(--stone);">Treatments</p>
+            <div class="filter-tabs" id="extras-filter-tabs">
+              <button class="filter-tab is-active" onclick="filterExtras('all', this)">All</button>
+              <button class="filter-tab" onclick="filterExtras('treatments', this)">Treatments</button>
+              <button class="filter-tab" onclick="filterExtras('coaching', this)">Coaching &amp; Counselling</button>
+              <button class="filter-tab" onclick="filterExtras('activities', this)">Activities</button>
+              <button class="filter-tab" onclick="filterExtras('transport', this)">Transport</button>
+            </div>
+
             <div class="extras-grid">
-              <div class="extra-card" data-extra-id="e1">
-                <div class="extra-card__body">
+              <div class="extra-card" data-extra-id="e1" data-extra-category="treatments">
+                <img src="images/extras/extras-1.png" alt="Luxury Massage" class="extra-card__thumb">
+                <div class="extra-card__info">
                   <p class="extra-card__name">Luxury Massage</p>
                   <p class="extra-card__desc">60-minute full-body Balinese massage with local therapist.</p>
-                  <p class="extra-card__price">+£95 per person</p>
                 </div>
-                <button class="extra-card__btn btn btn--secondary btn--sm" onclick="toggleExtra('e1')">Add</button>
+                <div class="extra-card__price-area">
+                  <span class="extra-price-main">£95</span>
+                </div>
+                <button class="select-icon-btn" aria-label="Add extra" onclick="toggleExtra('e1')">
+                  <svg class="icon-plus" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="4" x2="12" y2="20"/><line x1="4" y1="12" x2="20" y2="12"/></svg>
+                  <svg class="icon-minus" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="4" y1="12" x2="20" y2="12"/></svg>
+                </button>
               </div>
-              <div class="extra-card" data-extra-id="e2">
-                <div class="extra-card__body">
+              <div class="extra-card" data-extra-id="e2" data-extra-category="treatments">
+                <img src="images/extras/extras-1.png" alt="Organic Facial" class="extra-card__thumb">
+                <div class="extra-card__info">
                   <p class="extra-card__name">Organic Facial</p>
                   <p class="extra-card__desc">Nourishing organic facial — suited to all skin types.</p>
-                  <p class="extra-card__price">+£85 per person</p>
                 </div>
-                <button class="extra-card__btn btn btn--secondary btn--sm" onclick="toggleExtra('e2')">Add</button>
+                <div class="extra-card__price-area">
+                  <span class="extra-price-main">£85</span>
+                </div>
+                <button class="select-icon-btn" aria-label="Add extra" onclick="toggleExtra('e2')">
+                  <svg class="icon-plus" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="4" x2="12" y2="20"/><line x1="4" y1="12" x2="20" y2="12"/></svg>
+                  <svg class="icon-minus" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="4" y1="12" x2="20" y2="12"/></svg>
+                </button>
               </div>
-            </div>
-
-            <p class="label-caps" style="margin-top: var(--s6); margin-bottom: var(--s4); color: var(--stone);">Activities</p>
-            <div class="extras-grid">
-              <div class="extra-card" data-extra-id="e3">
-                <div class="extra-card__body">
+              <div class="extra-card" data-extra-id="e3" data-extra-category="activities">
+                <img src="images/extras/extras-2.png" alt="Private Yoga Session" class="extra-card__thumb">
+                <div class="extra-card__info">
                   <p class="extra-card__name">Private Yoga Session</p>
                   <p class="extra-card__desc">One-to-one session with your lead facilitator.</p>
-                  <p class="extra-card__price">+£75 per person</p>
                 </div>
-                <button class="extra-card__btn btn btn--secondary btn--sm" onclick="toggleExtra('e3')">Add</button>
+                <div class="extra-card__price-area">
+                  <span class="extra-price-main">£75</span>
+                </div>
+                <button class="select-icon-btn" aria-label="Add extra" onclick="toggleExtra('e3')">
+                  <svg class="icon-plus" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="4" x2="12" y2="20"/><line x1="4" y1="12" x2="20" y2="12"/></svg>
+                  <svg class="icon-minus" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="4" y1="12" x2="20" y2="12"/></svg>
+                </button>
               </div>
-              <div class="extra-card" data-extra-id="e4">
-                <div class="extra-card__body">
+              <div class="extra-card" data-extra-id="e4" data-extra-category="activities">
+                <img src="images/extras/extras-2.png" alt="Sunrise Hike" class="extra-card__thumb">
+                <div class="extra-card__info">
                   <p class="extra-card__name">Sunrise Hike</p>
                   <p class="extra-card__desc">Guided mountain trail — 3 hours, moderate pace.</p>
-                  <p class="extra-card__price">+£45 per person</p>
                 </div>
-                <button class="extra-card__btn btn btn--secondary btn--sm" onclick="toggleExtra('e4')">Add</button>
+                <div class="extra-card__price-area">
+                  <span class="extra-price-main">£45</span>
+                </div>
+                <button class="select-icon-btn" aria-label="Add extra" onclick="toggleExtra('e4')">
+                  <svg class="icon-plus" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="4" x2="12" y2="20"/><line x1="4" y1="12" x2="20" y2="12"/></svg>
+                  <svg class="icon-minus" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="4" y1="12" x2="20" y2="12"/></svg>
+                </button>
               </div>
-            </div>
-
-            <p class="label-caps" style="margin-top: var(--s6); margin-bottom: var(--s4); color: var(--stone);">Coaching</p>
-            <div class="extras-grid">
-              <div class="extra-card" data-extra-id="e5">
-                <div class="extra-card__body">
+              <div class="extra-card" data-extra-id="e5" data-extra-category="coaching">
+                <img src="images/extras/extras-3.png" alt="Life Coaching Session" class="extra-card__thumb">
+                <div class="extra-card__info">
                   <p class="extra-card__name">Life Coaching Session</p>
                   <p class="extra-card__desc">60-minute private session with a certified coach.</p>
-                  <p class="extra-card__price">+£120 per person</p>
                 </div>
-                <button class="extra-card__btn btn btn--secondary btn--sm" onclick="toggleExtra('e5')">Add</button>
+                <div class="extra-card__price-area">
+                  <span class="extra-price-main">£120</span>
+                </div>
+                <button class="select-icon-btn" aria-label="Add extra" onclick="toggleExtra('e5')">
+                  <svg class="icon-plus" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="4" x2="12" y2="20"/><line x1="4" y1="12" x2="20" y2="12"/></svg>
+                  <svg class="icon-minus" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="4" y1="12" x2="20" y2="12"/></svg>
+                </button>
               </div>
-              <div class="extra-card" data-extra-id="e6">
-                <div class="extra-card__body">
+              <div class="extra-card" data-extra-id="e6" data-extra-category="coaching">
+                <img src="images/extras/extras-3.png" alt="Nutrition Consultation" class="extra-card__thumb">
+                <div class="extra-card__info">
                   <p class="extra-card__name">Nutrition Consultation</p>
                   <p class="extra-card__desc">Personalised session with our resident nutritionist.</p>
-                  <p class="extra-card__price">+£95 per person</p>
                 </div>
-                <button class="extra-card__btn btn btn--secondary btn--sm" onclick="toggleExtra('e6')">Add</button>
+                <div class="extra-card__price-area">
+                  <span class="extra-price-main">£95</span>
+                </div>
+                <button class="select-icon-btn" aria-label="Add extra" onclick="toggleExtra('e6')">
+                  <svg class="icon-plus" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="4" x2="12" y2="20"/><line x1="4" y1="12" x2="20" y2="12"/></svg>
+                  <svg class="icon-minus" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="4" y1="12" x2="20" y2="12"/></svg>
+                </button>
               </div>
-            </div>
-
-            <p class="label-caps" style="margin-top: var(--s6); margin-bottom: var(--s4); color: var(--stone);">Transport</p>
-            <div class="extras-grid">
-              <div class="extra-card" data-extra-id="e7">
-                <div class="extra-card__body">
+              <div class="extra-card" data-extra-id="e7" data-extra-category="transport">
+                <img src="images/extras/extras-4.png" alt="Private Airport Transfer" class="extra-card__thumb">
+                <div class="extra-card__info">
                   <p class="extra-card__name">Private Airport Transfer</p>
                   <p class="extra-card__desc">Door-to-door private car from Denpasar Airport.</p>
-                  <p class="extra-card__price">+£65 per person</p>
                 </div>
-                <button class="extra-card__btn btn btn--secondary btn--sm" onclick="toggleExtra('e7')">Add</button>
+                <div class="extra-card__price-area">
+                  <span class="extra-price-main">£65</span>
+                </div>
+                <button class="select-icon-btn" aria-label="Add extra" onclick="toggleExtra('e7')">
+                  <svg class="icon-plus" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="4" x2="12" y2="20"/><line x1="4" y1="12" x2="20" y2="12"/></svg>
+                  <svg class="icon-minus" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="4" y1="12" x2="20" y2="12"/></svg>
+                </button>
               </div>
-              <div class="extra-card" data-extra-id="e8">
-                <div class="extra-card__body">
+              <div class="extra-card" data-extra-id="e8" data-extra-category="transport">
+                <img src="images/extras/extras-4.png" alt="Spa Town Day Trip" class="extra-card__thumb">
+                <div class="extra-card__info">
                   <p class="extra-card__name">Spa Town Day Trip</p>
                   <p class="extra-card__desc">Guided half-day trip to Ubud with driver-guide.</p>
-                  <p class="extra-card__price">+£85 per person</p>
                 </div>
-                <button class="extra-card__btn btn btn--secondary btn--sm" onclick="toggleExtra('e8')">Add</button>
+                <div class="extra-card__price-area">
+                  <span class="extra-price-main">£85</span>
+                </div>
+                <button class="select-icon-btn" aria-label="Add extra" onclick="toggleExtra('e8')">
+                  <svg class="icon-plus" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="4" x2="12" y2="20"/><line x1="4" y1="12" x2="20" y2="12"/></svg>
+                  <svg class="icon-minus" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="4" y1="12" x2="20" y2="12"/></svg>
+                </button>
               </div>
             </div>
           </div>
@@ -2231,6 +2380,22 @@
 
     // Expose app for inline onclick
     window.bookingApp = { renderStep };
+
+    function filterRooms(cat, btn) {
+      document.querySelectorAll('#room-filter-tabs .filter-tab').forEach(t => t.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      document.querySelectorAll('.room-card').forEach(card => {
+        card.style.display = (cat === 'all' || card.dataset.roomType === cat) ? '' : 'none';
+      });
+    }
+
+    function filterExtras(cat, btn) {
+      document.querySelectorAll('#extras-filter-tabs .filter-tab').forEach(t => t.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      document.querySelectorAll('.extra-card').forEach(card => {
+        card.style.display = (cat === 'all' || card.dataset.extraCategory === cat) ? '' : 'none';
+      });
+    }
 
     // Patch: update review fields on step 3 & 4
     document.getElementById('nav-continue').addEventListener('click', function() {

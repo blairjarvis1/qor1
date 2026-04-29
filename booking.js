@@ -46,8 +46,9 @@ const RETREAT_DATES = [
 
 const ROOMS = [
   { id: 'r1', name: 'Shared Garden Room',   type: 'Twin share · Garden view',     price: 2195, badge: null },
-  { id: 'r2', name: 'Private Valley Room',  type: 'Double or twin · Valley view', price: 2895, badge: 'Most popular' },
-  { id: 'r3', name: 'Quinta Suite',         type: 'Junior suite · Private terrace', price: 3750, badge: 'Premium' },
+  { id: 'r2', name: 'Garden Room',           type: 'Double · Garden view · Private', price: 2595, badge: null },
+  { id: 'r3', name: 'Private Valley Room',  type: 'Double or twin · Valley view', price: 2895, badge: 'Most popular' },
+  { id: 'r4', name: 'Quinta Suite',         type: 'Junior suite · Private terrace', price: 3750, badge: 'Premium' },
 ];
 
 const EXTRAS = [
@@ -971,16 +972,13 @@ function toggleExtra(id) {
   const extra = EXTRAS.find(e => e.id === id);
   if (!extra) return;
   const card = document.querySelector(`.extra-card[data-extra-id="${id}"]`);
-  const btn  = card?.querySelector('.extra-card__btn');
 
   if (state.selectedExtras[id]) {
     delete state.selectedExtras[id];
     card?.classList.remove('is-added');
-    if (btn) { btn.textContent = 'Add'; btn.classList.remove('btn--primary'); btn.classList.add('btn--secondary'); }
   } else {
     state.selectedExtras[id] = true;
     card?.classList.add('is-added');
-    if (btn) { btn.textContent = 'Remove'; btn.classList.remove('btn--secondary'); btn.classList.add('btn--primary'); }
   }
   updateSidebar();
 }
