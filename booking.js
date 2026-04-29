@@ -774,14 +774,16 @@ function updateSidebar() {
   if (navGuests) { navGuests.textContent = guestLabel; }
 
   // Extras line
-  const extrasTotal = Object.keys(state.selectedExtras).reduce((sum, id) => {
-    const extra = EXTRAS.find(e => e.id === id);
-    return extra ? sum + extra.price : sum;
-  }, 0);
-  const extrasLineEl = document.getElementById('sidebar-extras-line');
-  const extrasValEl  = document.getElementById('sidebar-extras');
-  if (extrasLineEl) extrasLineEl.style.display = extrasTotal > 0 ? '' : 'none';
-  if (extrasValEl)  extrasValEl.textContent    = extrasTotal > 0 ? `+£${extrasTotal.toLocaleString()}` : '';
+  const selectedExtraIds = Object.keys(state.selectedExtras);
+  const extrasLineEl  = document.getElementById('basket-extras-line');
+  const extrasItemsEl = document.getElementById('basket-extras-items');
+  if (extrasLineEl) extrasLineEl.style.display = selectedExtraIds.length > 0 ? '' : 'none';
+  if (extrasItemsEl) {
+    extrasItemsEl.innerHTML = selectedExtraIds.map(id => {
+      const extra = EXTRAS.find(e => e.id === id);
+      return extra ? `<span class="basket-extra-item">${extra.name}</span>` : '';
+    }).join('');
+  }
 
   // Price breakdown
   updatePriceBreakdown();
