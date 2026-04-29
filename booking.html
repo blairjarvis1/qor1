@@ -535,6 +535,8 @@
       flex-shrink: 0;
     }
     .booking-basket__step-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--s1); }
+    #basket-extras-items { display: flex; flex-direction: column; gap: 2px; }
+    .basket-extra-item { font-size: var(--t-sm); font-weight: 500; color: var(--ink); }
 
     /* ── Section headings ── */
     .section-heading {
@@ -566,39 +568,40 @@
     .filter-tab:hover:not(.is-active) { background: var(--sand-mid); }
 
     /* ── Room cards — full-width rows ── */
-    .room-grid { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--border); }
+    .room-grid { display: flex; flex-direction: column; row-gap: 10px; border-top: 1px solid var(--border); }
     .room-card {
       border: none !important;
       border-bottom: 1px solid var(--border) !important;
       border-radius: 0 !important;
       box-shadow: none !important;
       flex-direction: row;
-      align-items: center;
-      padding: 0;
+      align-items: stretch;
+      min-height: 176px;
+      padding: 0 0 10px 0;
       gap: 0;
       background: transparent;
     }
     .room-card:hover  { background: var(--parchment); box-shadow: none !important; border-color: var(--border) !important; }
     .room-card.is-selected { background: var(--sage-pale) !important; border-color: var(--border) !important; border-width: 1px !important; box-shadow: none !important; }
-    .room-card__image-wrap { flex-shrink: 0; width: 210px; height: 158px; overflow: hidden; }
+    .room-card__image-wrap { flex-shrink: 0; width: 210px; overflow: hidden; }
     .room-card__image-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .room-card__info { flex: 1; padding: var(--s5) var(--s6); align-self: center; }
+    .room-card__info { flex: 1; padding: var(--s5) var(--s6); display: flex; flex-direction: column; justify-content: flex-start; }
     .room-card__badge { min-height: 0; padding: 0; margin-bottom: var(--s2); }
     .room-card__body { padding: 0; flex: unset; }
-    .room-card__name { font-size: var(--t-2xl); margin-bottom: var(--s1); }
+    .room-card__name { font-family: var(--serif); font-size: var(--t-2xl); font-weight: 400; font-style: normal; margin-bottom: var(--s1); }
     .room-card__footer { display: none !important; }
-    .room-card__price-area { flex-shrink: 0; text-align: right; padding: 0 var(--s5); }
+    .room-card__price-area { flex-shrink: 0; text-align: right; padding: 0 var(--s5); align-self: center; }
     .room-price-main { font-family: var(--serif); font-size: var(--t-2xl); font-weight: 400; color: var(--ink); white-space: nowrap; }
     .room-price-main span { font-family: var(--sans); font-size: var(--t-sm); color: var(--stone); font-weight: 400; margin-left: 4px; }
     .room-price-sub { font-size: var(--t-xs); color: var(--stone); margin-top: 3px; text-align: right; }
 
     /* ── Extras cards — full-width rows ── */
-    .extras-grid { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--border); }
+    .extras-grid { display: flex; flex-direction: column; row-gap: 10px; border-top: 1px solid var(--border); }
     .extra-card {
       border: none !important;
       border-bottom: 1px solid var(--border) !important;
       border-radius: 0 !important;
-      padding: 0;
+      padding: 0 0 10px 0;
       gap: 0;
       align-items: center;
       background: transparent;
@@ -612,6 +615,7 @@
     .extra-price-main { font-family: var(--serif); font-size: var(--t-2xl); font-weight: 400; color: var(--ink); white-space: nowrap; }
 
     /* ── Select / Add icon button ── */
+    .room-card .select-icon-btn { align-self: center; }
     .select-icon-btn {
       flex-shrink: 0;
       width: 52px;
@@ -627,6 +631,7 @@
       margin-right: var(--s5);
     }
     .select-icon-btn:hover { color: var(--sage); }
+    .select-icon-btn svg { width: 38px; height: 38px; }
     .select-icon-btn .icon-minus { display: none; }
     .room-card.is-selected  .select-icon-btn .icon-plus  { display: none; }
     .room-card.is-selected  .select-icon-btn .icon-minus { display: block; }
@@ -1165,7 +1170,6 @@
                   <img src="images/rooms/room-1.png" alt="Shared Garden Room">
                 </div>
                 <div class="room-card__info">
-                  <div class="room-card__badge"><!-- no badge --></div>
                   <div class="room-card__body">
                     <h3 class="room-card__name">Shared Garden Room</h3>
                     <p class="room-card__type">Twin share · Garden view · En-suite</p>
@@ -1198,7 +1202,6 @@
                   <img src="images/rooms/room-2.png" alt="Garden Room">
                 </div>
                 <div class="room-card__info">
-                  <div class="room-card__badge"><!-- no badge --></div>
                   <div class="room-card__body">
                     <h3 class="room-card__name">Garden Room</h3>
                     <p class="room-card__type">Double · Garden view · En-suite</p>
@@ -1312,7 +1315,7 @@
 
             <div class="extras-grid">
               <div class="extra-card" data-extra-id="e1" data-extra-category="treatments">
-                <img src="images/extras/extras-1.png" alt="Luxury Massage" class="extra-card__thumb">
+                <img src="images/extras/luxury-massage.png" alt="Luxury Massage" class="extra-card__thumb">
                 <div class="extra-card__info">
                   <p class="extra-card__name">Luxury Massage</p>
                   <p class="extra-card__desc">60-minute full-body Balinese massage with local therapist.</p>
@@ -1326,7 +1329,7 @@
                 </button>
               </div>
               <div class="extra-card" data-extra-id="e2" data-extra-category="treatments">
-                <img src="images/extras/extras-1.png" alt="Organic Facial" class="extra-card__thumb">
+                <img src="images/extras/organic-facial.png" alt="Organic Facial" class="extra-card__thumb">
                 <div class="extra-card__info">
                   <p class="extra-card__name">Organic Facial</p>
                   <p class="extra-card__desc">Nourishing organic facial — suited to all skin types.</p>
@@ -1340,7 +1343,7 @@
                 </button>
               </div>
               <div class="extra-card" data-extra-id="e3" data-extra-category="activities">
-                <img src="images/extras/extras-2.png" alt="Private Yoga Session" class="extra-card__thumb">
+                <img src="images/extras/private-yoga.png" alt="Private Yoga Session" class="extra-card__thumb">
                 <div class="extra-card__info">
                   <p class="extra-card__name">Private Yoga Session</p>
                   <p class="extra-card__desc">One-to-one session with your lead facilitator.</p>
@@ -1354,7 +1357,7 @@
                 </button>
               </div>
               <div class="extra-card" data-extra-id="e4" data-extra-category="activities">
-                <img src="images/extras/extras-2.png" alt="Sunrise Hike" class="extra-card__thumb">
+                <img src="images/extras/sunrise-hike.png" alt="Sunrise Hike" class="extra-card__thumb">
                 <div class="extra-card__info">
                   <p class="extra-card__name">Sunrise Hike</p>
                   <p class="extra-card__desc">Guided mountain trail — 3 hours, moderate pace.</p>
@@ -1368,7 +1371,7 @@
                 </button>
               </div>
               <div class="extra-card" data-extra-id="e5" data-extra-category="coaching">
-                <img src="images/extras/extras-3.png" alt="Life Coaching Session" class="extra-card__thumb">
+                <img src="images/extras/life-coaching.png" alt="Life Coaching Session" class="extra-card__thumb">
                 <div class="extra-card__info">
                   <p class="extra-card__name">Life Coaching Session</p>
                   <p class="extra-card__desc">60-minute private session with a certified coach.</p>
@@ -1382,7 +1385,7 @@
                 </button>
               </div>
               <div class="extra-card" data-extra-id="e6" data-extra-category="coaching">
-                <img src="images/extras/extras-3.png" alt="Nutrition Consultation" class="extra-card__thumb">
+                <img src="images/extras/nutrition-consulation.png" alt="Nutrition Consultation" class="extra-card__thumb">
                 <div class="extra-card__info">
                   <p class="extra-card__name">Nutrition Consultation</p>
                   <p class="extra-card__desc">Personalised session with our resident nutritionist.</p>
@@ -1396,7 +1399,7 @@
                 </button>
               </div>
               <div class="extra-card" data-extra-id="e7" data-extra-category="transport">
-                <img src="images/extras/extras-4.png" alt="Private Airport Transfer" class="extra-card__thumb">
+                <img src="images/extras/airport-transfer.png" alt="Private Airport Transfer" class="extra-card__thumb">
                 <div class="extra-card__info">
                   <p class="extra-card__name">Private Airport Transfer</p>
                   <p class="extra-card__desc">Door-to-door private car from Denpasar Airport.</p>
@@ -1410,7 +1413,7 @@
                 </button>
               </div>
               <div class="extra-card" data-extra-id="e8" data-extra-category="transport">
-                <img src="images/extras/extras-4.png" alt="Spa Town Day Trip" class="extra-card__thumb">
+                <img src="images/extras/spa-trip.png" alt="Spa Town Day Trip" class="extra-card__thumb">
                 <div class="extra-card__info">
                   <p class="extra-card__name">Spa Town Day Trip</p>
                   <p class="extra-card__desc">Guided half-day trip to Ubud with driver-guide.</p>
@@ -2327,9 +2330,9 @@
           <span class="booking-basket__row-label">Guests</span>
           <span class="booking-basket__row-val" id="nav-guests">1 guest</span>
         </div>
-        <div class="booking-basket__row" id="sidebar-extras-line" style="display:none;">
+        <div class="booking-basket__row" id="basket-extras-line" style="display:none;">
           <span class="booking-basket__row-label">Extras</span>
-          <span class="booking-basket__row-val" id="sidebar-extras" style="color:var(--sage);"></span>
+          <div id="basket-extras-items"></div>
         </div>
       </div>
 
