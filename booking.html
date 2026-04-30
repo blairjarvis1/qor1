@@ -1152,8 +1152,26 @@
 
           <!-- ── Choose Your Room ──────────────────────────────────────────── -->
           <div style="margin-top: var(--s10); padding-top: var(--s8); border-top: 1px solid var(--border);">
-            <h2 class="section-heading">Choose your room</h2>
+            <h2 class="section-heading" id="room-section-heading">Choose your room</h2>
             <p style="font-size: var(--t-sm); color: var(--stone); margin-bottom: var(--s5);">All rooms are en-suite and include the full retreat programme. Select the option that suits you best.</p>
+
+            <!-- Room slot tabs — shown for Two Guests only -->
+            <div id="room-tabs-bar" style="display: none; align-items: center; gap: var(--s3); margin-bottom: var(--s5);">
+              <div class="view-toggle" id="room-slot-toggle">
+                <button class="view-toggle__btn is-active" id="room-tab-1" data-slot="1">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  Room 1
+                </button>
+                <button class="view-toggle__btn" id="room-tab-2" data-slot="2" style="display:none;">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  Room 2
+                </button>
+              </div>
+              <button class="btn btn--ghost btn--sm" id="room-tab-add" style="display: flex; align-items: center; gap: var(--s2); font-size: var(--t-xs);">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="4" x2="12" y2="20"/><line x1="4" y1="12" x2="20" y2="12"/></svg>
+                Add a room
+              </button>
+            </div>
 
             <div class="filter-tabs" id="room-filter-tabs">
               <button class="filter-tab is-active" onclick="filterRooms('all', this)">All</button>
@@ -2323,8 +2341,12 @@
           <span class="booking-basket__row-val placeholder" id="nav-date">Select dates</span>
         </div>
         <div class="booking-basket__row">
-          <span class="booking-basket__row-label">Room</span>
+          <span class="booking-basket__row-label" id="basket-room1-label">Room</span>
           <span class="booking-basket__row-val placeholder" id="nav-room">Select room</span>
+        </div>
+        <div class="booking-basket__row" id="basket-room2-row" style="display:none;">
+          <span class="booking-basket__row-label">Room 2</span>
+          <span class="booking-basket__row-val placeholder" id="nav-room2">Select room</span>
         </div>
         <div class="booking-basket__row">
           <span class="booking-basket__row-label">Guests</span>

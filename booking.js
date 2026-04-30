@@ -14,9 +14,12 @@ const state = {
   currentStep: 1,
   totalSteps: 6,
   selectedDate: null,
-  selectedRoom: null,
+  selectedRoom: null,       // Room 1 selection (always the primary)
+  room2: null,              // Room 2 selection (Two Guests, 2-room mode only)
+  activeRoomSlot: 1,        // 1 or 2 — which slot receives card clicks
+  twoRoomMode: false,       // whether the 2nd room tab has been added
   guestCount: 1,
-  guestType: 'solo',       // 'solo' | 'couple'
+  guestType: 'solo',        // 'solo' | 'couple' | 'group'
   paymentOption: 'deposit', // 'deposit' | 'full'
   promoCode: null,          // applied promo code string
   promoDiscount: 0,         // discount multiplier (0.2 = 20%)
@@ -102,6 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavButtons();
   initDateSelection();
   initRoomSelection();
+  initRoomTabs();
   initGuestStepper();
   initGuestType();
   initPaymentToggle();
@@ -311,6 +315,10 @@ function validateStep(n) {
         showError('Please choose a room to continue.');
         return false;
       }
+      if (state.guestType === 'couple' && state.twoRoomMode && !state.room2) {
+        showError('Please choose a room for Room 2, or remove the second room.');
+        return false;
+      }
       return true;
     case 2: {
       const cb1 = document.getElementById('agree-policies');
@@ -423,13 +431,95 @@ function selectRoom(id) {
   const room = ROOMS.find(r => r.id === id);
   if (!room) return;
 
-  state.selectedRoom = room;
+  if (state.guestType === 'couple' && state.twoRoomMode && state.activeRoomSlot === 2) {
+    state.room2 = room;
+  } else {
+    state.selectedRoom = room;
+  }
 
-  document.querySelectorAll('.room-card[data-room-id]').forEach(c => {
-    c.classList.toggle('is-selected', c.dataset.roomId === id);
-  });
-
+  refreshRoomCardDisplay();
   updateSidebar();
+}
+
+function refreshRoomCardDisplay() {
+  const active = state.activeRoomSlot === 2 ? state.room2 : state.selectedRoom;
+  document.querySelectorAll('.room-card[data-room-id]').forEach(c => {
+    c.classList.toggle('is-selected', !!(active && c.dataset.roomId === active.id));
+  });
+}
+
+/* --- Room Tabs (Two Guests: Room 1 / Room 2) --------------- */
+function initRoomTabs() {
+  const tab1   = document.getElementById('room-tab-1');
+  const tab2   = document.getElementById('room-tab-2');
+  const addBtn = document.getElementById('room-tab-add');
+
+  if (tab1) {
+    tab1.addEventListener('click', () => {
+      state.activeRoomSlot = 1;
+      tab1.classList.add('is-active');
+      tab2.classList.remove('is-active');
+      refreshRoomCardDisplay();
+    });
+  }
+
+  if (tab2) {
+    tab2.addEventListener('click', () => {
+      state.activeRoomSlot = 2;
+      tab2.classList.add('is-active');
+      tab1.classList.remove('is-active');
+      refreshRoomCardDisplay();
+    });
+  }
+
+  if (addBtn) {
+    addBtn.addEventListener('click', () => {
+      state.twoRoomMode    = true;
+      state.activeRoomSlot = 2;
+      addBtn.style.display = 'none';
+      tab2.style.display   = '';
+      tab2.classList.add('is-active');
+      tab1.classList.remove('is-active');
+      refreshRoomCardDisplay();
+      updateSidebar();
+    });
+  }
+}
+
+function showRoomTabs() {
+  const bar     = document.getElementById('room-tabs-bar');
+  const heading = document.getElementById('room-section-heading');
+  if (bar)     bar.style.display     = 'flex';
+  if (heading) heading.textContent   = 'Choose your room/s';
+  const label = document.getElementById('basket-room1-label');
+  if (label)   label.textContent     = 'Room 1';
+}
+
+function hideRoomTabs() {
+  const bar     = document.getElementById('room-tabs-bar');
+  const heading = document.getElementById('room-section-heading');
+  const tab2    = document.getElementById('room-tab-2');
+  const tab1    = document.getElementById('room-tab-1');
+  const addBtn  = document.getElementById('room-tab-add');
+  const room2Row = document.getElementById('basket-room2-row');
+  const label   = document.getElementById('basket-room1-label');
+
+  if (bar)      bar.style.display      = 'none';
+  if (heading)  heading.textContent    = 'Choose your room';
+  if (label)    label.textContent      = 'Room';
+
+  // Reset two-room state
+  state.room2          = null;
+  state.activeRoomSlot = 1;
+  state.twoRoomMode    = false;
+
+  // Reset tab UI
+  if (tab1)    tab1.classList.add('is-active');
+  if (tab2)  { tab2.classList.remove('is-active'); tab2.style.display = 'none'; }
+  if (addBtn)  addBtn.style.display = 'flex';
+  if (room2Row) room2Row.style.display = 'none';
+
+  refreshRoomCardDisplay();
 }
 
 /* --- Guest Stepper ------------------------------------------ */
@@ -466,17 +556,22 @@ function initGuestStepper() {
 function initGuestType() {
   document.querySelectorAll('.guest-type-card[data-type]').forEach(card => {
     card.addEventListener('click', () => {
+      const prevType = state.guestType;
       state.guestType = card.dataset.type;
       document.querySelectorAll('.guest-type-card[data-type]').forEach(c => {
         c.classList.toggle('is-active', c.dataset.type === state.guestType);
       });
       if (state.guestType === 'couple') {
         state.guestCount = 2;
-      } else if (state.guestType === 'group') {
-        const sel = document.getElementById('group-guest-count');
-        state.guestCount = sel ? parseInt(sel.value) : 3;
+        showRoomTabs();
       } else {
-        state.guestCount = 1;
+        if (prevType === 'couple') hideRoomTabs();
+        if (state.guestType === 'group') {
+          const sel = document.getElementById('group-guest-count');
+          state.guestCount = sel ? parseInt(sel.value) : 3;
+        } else {
+          state.guestCount = 1;
+        }
       }
       const val = document.getElementById('guest-count');
       if (val) val.textContent = state.guestCount;
@@ -513,7 +608,7 @@ function initPaymentToggle() {
 
 /* --- View Toggle (Calendar / List) -------------------------- */
 function initViewToggle() {
-  const buttons  = document.querySelectorAll('.view-toggle__btn');
+  const buttons  = document.querySelectorAll('.view-toggle__btn[data-view]');
   const calView  = document.getElementById('cal-view');
   const listView = document.getElementById('list-view');
   if (!calView || !listView) return;
@@ -756,14 +851,33 @@ function updateSidebar() {
   }
 
   // Room line
-  const roomVal = document.getElementById('sidebar-room');
-  const navRoom = document.getElementById('nav-room');
+  const roomVal  = document.getElementById('sidebar-room');
+  const navRoom  = document.getElementById('nav-room');
+  const navRoom2 = document.getElementById('nav-room2');
+  const room2Row = document.getElementById('basket-room2-row');
+
   if (state.selectedRoom) {
     if (roomVal) { roomVal.textContent = state.selectedRoom.name; roomVal.classList.remove('placeholder'); }
     if (navRoom) { navRoom.textContent = state.selectedRoom.name; navRoom.classList.remove('placeholder'); }
   } else {
     if (roomVal) { roomVal.textContent = 'Select room'; roomVal.classList.add('placeholder'); }
     if (navRoom) { navRoom.textContent = 'Select room'; navRoom.classList.add('placeholder'); }
+  }
+
+  // Room 2 basket row
+  if (state.twoRoomMode) {
+    if (room2Row) room2Row.style.display = '';
+    if (navRoom2) {
+      if (state.room2) {
+        navRoom2.textContent = state.room2.name;
+        navRoom2.classList.remove('placeholder');
+      } else {
+        navRoom2.textContent = 'Select room';
+        navRoom2.classList.add('placeholder');
+      }
+    }
+  } else {
+    if (room2Row) room2Row.style.display = 'none';
   }
 
   // Guests line
@@ -792,9 +906,13 @@ function updateSidebar() {
 function updatePriceBreakdown() {
   if (!state.selectedRoom) return;
 
-  const base = state.selectedRoom.price;
+  const base  = state.selectedRoom.price;
   const count = state.guestCount;
-  const subtotalBeforePromo = base * count;
+
+  // Two Guests + 2 rooms: 1 guest per room, prices are additive
+  const subtotalBeforePromo = (state.guestType === 'couple' && state.twoRoomMode && state.room2)
+    ? base + state.room2.price
+    : base * count;
   const discountAmount = Math.round(subtotalBeforePromo * state.promoDiscount);
   const extrasTotal = Object.keys(state.selectedExtras).reduce((sum, id) => {
     const extra = EXTRAS.find(e => e.id === id);
