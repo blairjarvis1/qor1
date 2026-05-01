@@ -305,6 +305,105 @@
       .itinerary-day { grid-template-columns: 64px 1fr; gap: var(--s4); }
     }
 
+    /* ── Cancel booking modal ────────────────────────────────── */
+    .cancel-scrim {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 800;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: var(--s6);
+    }
+    .cancel-scrim.is-open { display: flex; }
+
+    .cancel-modal {
+      background: var(--white);
+      border-radius: var(--r-xl);
+      max-width: 800px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.28);
+    }
+    .cancel-modal__screen { display: none; }
+    .cancel-modal__screen.is-active { display: block; }
+
+    .cancel-modal__header {
+      padding: var(--s7) var(--s8);
+      border-bottom: 1px solid var(--border);
+    }
+    .cancel-modal__title {
+      font-family: var(--serif);
+      font-size: 32px;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: var(--s3);
+    }
+    .cancel-modal__sub {
+      font-size: var(--t-sm);
+      color: var(--stone);
+      line-height: 1.65;
+    }
+    .cancel-modal__body { padding: var(--s7) var(--s8); }
+    .cancel-modal__footer {
+      padding: var(--s6) var(--s8);
+      display: flex;
+      align-items: center;
+      gap: var(--s4);
+      flex-wrap: wrap;
+    }
+
+    /* Refund summary table */
+    .cancel-summary {
+      display: flex;
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      overflow: hidden;
+      margin: var(--s5) 0;
+    }
+    .cancel-summary__thumb {
+      width: 88px;
+      flex-shrink: 0;
+      object-fit: cover;
+      display: block;
+    }
+    .cancel-summary__cols {
+      display: flex;
+      flex: 1;
+    }
+    .cancel-summary__col {
+      flex: 1;
+      padding: var(--s4) var(--s5);
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      justify-content: center;
+    }
+    .cancel-summary__col--refund {
+      background: var(--sage-pale);
+      flex: 1.2;
+    }
+    .cancel-summary__label {
+      font-family: var(--ui);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mist);
+    }
+    .cancel-summary__value {
+      font-size: var(--t-sm);
+      color: var(--ink);
+      font-weight: 500;
+    }
+    .cancel-summary__col--refund .cancel-summary__label { color: var(--sage); }
+    .cancel-summary__col--refund .cancel-summary__value {
+      font-family: var(--serif);
+      font-size: var(--t-xl);
+    }
+
     /* Inline editable field */
     .editable-field {
       display: flex;
@@ -878,6 +977,80 @@
     </main>
   </div>
 
+  <!-- ── CANCEL BOOKING MODAL ─────────────────────────────────── -->
+  <div class="cancel-scrim" id="cancel-scrim">
+    <div class="cancel-modal" id="cancel-modal">
+
+      <!-- Screen 1: Confirm cancellation -->
+      <div class="cancel-modal__screen is-active" id="cancel-screen-1">
+        <div class="cancel-modal__header">
+          <div class="cancel-modal__title">Cancel your booking</div>
+          <div class="cancel-modal__sub">We're sorry you're cancelling your booking, but we will try to help by making the process as simple as possible.</div>
+        </div>
+        <div class="cancel-modal__body">
+          <p style="font-family:var(--serif);font-size:var(--t-xl);color:var(--ink);margin-bottom:var(--s4)">Good news!</p>
+          <p style="font-size:var(--t-base);color:var(--charcoal);line-height:1.6;margin-bottom:var(--s5)">
+            You're entitled to a <strong>Free cancellation</strong> until 14 May 2026 (30 days before arrival).
+          </p>
+
+          <div class="cancel-summary">
+            <img class="cancel-summary__thumb" src="images/retreats/42 Acres/42+Acres+England+Yurt.webp" alt="42 Acres">
+            <div class="cancel-summary__cols">
+              <div class="cancel-summary__col">
+                <div class="cancel-summary__label">Retreat</div>
+                <div class="cancel-summary__value">42 Acres</div>
+              </div>
+              <div class="cancel-summary__col">
+                <div class="cancel-summary__label">Dates</div>
+                <div class="cancel-summary__value">14–21 Jun 2026</div>
+              </div>
+              <div class="cancel-summary__col">
+                <div class="cancel-summary__label">Room</div>
+                <div class="cancel-summary__value">Woodland Yurt</div>
+              </div>
+              <div class="cancel-summary__col">
+                <div class="cancel-summary__label">Guests</div>
+                <div class="cancel-summary__value">2 guests</div>
+              </div>
+              <div class="cancel-summary__col">
+                <div class="cancel-summary__label">Payment method</div>
+                <div class="cancel-summary__value">Visa ending ***4291</div>
+              </div>
+              <div class="cancel-summary__col cancel-summary__col--refund">
+                <div class="cancel-summary__label">Total refund</div>
+                <div class="cancel-summary__value">£2,850</div>
+              </div>
+            </div>
+          </div>
+
+          <p style="font-size:var(--t-sm);color:var(--stone)">Payment will be made within 5–10 working days.</p>
+        </div>
+        <div class="cancel-modal__footer">
+          <button class="btn btn--lg" style="background:var(--error);color:var(--white);border:none;letter-spacing:0.05em;flex:1" onclick="doCancel()">
+            Cancel booking and receive full refund
+          </button>
+          <button class="btn btn--secondary btn--lg" onclick="closeCancel()">Not just yet</button>
+        </div>
+      </div>
+
+      <!-- Screen 2: Cancellation confirmed -->
+      <div class="cancel-modal__screen" id="cancel-screen-2">
+        <div class="cancel-modal__header">
+          <div class="cancel-modal__title">We've cancelled your booking</div>
+        </div>
+        <div class="cancel-modal__body">
+          <p style="font-size:var(--t-base);color:var(--charcoal);line-height:1.65;margin-bottom:var(--s4)">Your booking has been successfully cancelled. You can view this cancellation in your account dashboard.</p>
+          <p style="font-size:var(--t-base);color:var(--charcoal);line-height:1.65;">We hope we can help you with another retreat in the future.</p>
+        </div>
+        <div class="cancel-modal__footer">
+          <button class="btn btn--primary btn--lg" onclick="goToAccount()">View this in my account</button>
+          <button class="btn btn--secondary btn--lg" onclick="closeCancel()">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
   <script>
     function toggleAccordion(id) {
       document.getElementById(id).classList.toggle('is-open');
@@ -899,10 +1072,24 @@
       document.getElementById('request-form').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
     function confirmCancel() {
-      if (confirm('Are you sure you want to cancel your booking at 42 Acres? Please review the cancellation policy before proceeding.')) {
-        alert('Cancellation request submitted. You will receive a confirmation email within 24 hours.');
-      }
+      document.getElementById('cancel-scrim').classList.add('is-open');
+      document.body.style.overflow = 'hidden';
     }
+    function closeCancel() {
+      document.getElementById('cancel-scrim').classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+    function doCancel() {
+      document.getElementById('cancel-screen-1').classList.remove('is-active');
+      document.getElementById('cancel-screen-2').classList.add('is-active');
+    }
+    function goToAccount() {
+      sessionStorage.setItem('showCancelled', 'true');
+      window.location.href = 'account-bookings.html';
+    }
+    document.getElementById('cancel-scrim').addEventListener('click', function(e) {
+      if (e.target === this) closeCancel();
+    });
   </script>
 
 </body>
