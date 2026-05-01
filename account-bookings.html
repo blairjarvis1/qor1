@@ -6,6 +6,7 @@
   <title>My Bookings — Queen of Retreats</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="account.css">
+  <link rel="stylesheet" href="contact-widget.css">
   <style>
     /* Cancelled booking card */
     .cancelled-card {
@@ -117,7 +118,7 @@
       <div class="acct-header__help">
         <span>Need help? (Mon–Fri, 9am–5pm)</span>
         <span class="acct-header__help-sep">/</span>
-        <a href="#">Contact us</a>
+        <a href="#" onclick="openContact('dashboard'); return false;">Contact us</a>
       </div>
     </div>
   </header>
@@ -807,5 +808,6 @@
     })();
   </script>
 
+  <script src="contact-widget.js"></script>
 </body>
 </html>
