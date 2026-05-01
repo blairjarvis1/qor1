@@ -7,6 +7,76 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="account.css">
   <style>
+    /* Cancelled booking card */
+    .cancelled-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      margin-bottom: var(--s4);
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+    }
+    .cancelled-card__img {
+      width: 200px;
+      flex-shrink: 0;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(30%);
+    }
+    .cancelled-card__body {
+      flex: 1;
+      padding: var(--s5) var(--s6);
+      display: flex;
+      flex-direction: column;
+      gap: var(--s4);
+      justify-content: center;
+    }
+    .cancelled-card__top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+    .cancelled-card__title {
+      font-family: var(--serif);
+      font-size: var(--t-lg);
+      color: var(--ink);
+    }
+    .cancelled-card__location {
+      font-size: var(--t-xs);
+      color: var(--stone);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 3px;
+    }
+    .cancelled-card__meta {
+      display: flex;
+      gap: var(--s6);
+      flex-wrap: wrap;
+    }
+    .cancelled-card__refund {
+      background: var(--sage-pale);
+      border-left: 1px solid var(--border);
+      flex-shrink: 0;
+      width: 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--s6);
+      text-align: center;
+    }
+    .cancelled-card__refund-text {
+      font-family: var(--ui);
+      font-size: var(--t-xs);
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--sage);
+      line-height: 1.5;
+    }
+
     /* Message host tertiary button */
     .btn-msg-host {
       border: none;
@@ -130,7 +200,7 @@
       <!-- Stat bar -->
       <div class="acct-stat-bar">
         <div class="acct-stat">
-          <div class="acct-stat__value">2</div>
+          <div class="acct-stat__value">3</div>
           <div class="acct-stat__label">Upcoming retreats</div>
         </div>
         <div class="acct-stat">
@@ -150,13 +220,16 @@
       <!-- Tabs -->
       <div class="acct-tabs" role="tablist">
         <button class="acct-tab is-active" role="tab" onclick="showTab('upcoming', this)">
-          Upcoming <span class="acct-tab__count">2</span>
+          Upcoming <span class="acct-tab__count">3</span>
         </button>
         <button class="acct-tab" role="tab" onclick="showTab('enquiries', this)" style="display:none">
           Enquiries <span class="acct-tab__count">3</span>
         </button>
         <button class="acct-tab" role="tab" onclick="showTab('past', this)">
           Past <span class="acct-tab__count">4</span>
+        </button>
+        <button class="acct-tab" role="tab" id="tab-btn-cancelled" onclick="showTab('cancelled', this)" style="display:none">
+          Cancelled <span class="acct-tab__count" style="background:var(--error-bg);color:var(--error)">1</span>
         </button>
       </div>
 
@@ -248,6 +321,59 @@
                 <div class="booking-card__meta-item">
                   <span class="booking-card__meta-label">Total</span>
                   <span class="booking-card__meta-value">£8,200 · Paid in full</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="booking-card__footer">
+            <div class="booking-card__next-step">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              All set — travel information available 30 days before departure
+            </div>
+            <div class="booking-card__actions">
+              <button class="btn-msg-host">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                Message host
+              </button>
+              <span style="width:1px;height:20px;background:var(--border);display:inline-block;flex-shrink:0"></span>
+              <a href="account-booking-detail.html" class="btn btn--secondary btn--sm">View details</a>
+              <button class="btn btn--ghost btn--sm">Download invoice</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Booking 3: Four Seasons Bali at Sayan -->
+        <article class="booking-card">
+          <div class="booking-card__inner">
+            <img class="booking-card__img" src="images/retreats/four-seasons/Four+Seasons+Bali+at+Sayan+meditation.webp" alt="Four Seasons Bali at Sayan">
+            <div class="booking-card__body">
+              <div class="booking-card__top">
+                <div>
+                  <div class="booking-card__title">Four Seasons Bali at Sayan</div>
+                  <div class="booking-card__location">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    Near Ubud, Bali
+                  </div>
+                </div>
+                <span class="badge badge--success">Fully paid</span>
+              </div>
+
+              <div class="booking-card__meta">
+                <div class="booking-card__meta-item">
+                  <span class="booking-card__meta-label">Dates</span>
+                  <span class="booking-card__meta-value">2–9 Oct 2026 · 7 nights</span>
+                </div>
+                <div class="booking-card__meta-item">
+                  <span class="booking-card__meta-label">Guests</span>
+                  <span class="booking-card__meta-value">2 guests · Sacred River Spa Villa</span>
+                </div>
+                <div class="booking-card__meta-item">
+                  <span class="booking-card__meta-label">Booking ref</span>
+                  <span class="booking-card__meta-value">QOR-2026-7102</span>
+                </div>
+                <div class="booking-card__meta-item">
+                  <span class="booking-card__meta-label">Total</span>
+                  <span class="booking-card__meta-value">£12,400 · Paid in full</span>
                 </div>
               </div>
             </div>
@@ -556,6 +682,48 @@
 
       </div><!-- /tab-past -->
 
+      <!-- ── TAB: CANCELLED ──────────────────────────────────────── -->
+      <div id="tab-cancelled" class="tab-panel" role="tabpanel">
+
+        <article class="cancelled-card">
+          <img class="cancelled-card__img" src="images/retreats/42 Acres/42+Acres+England+Yurt.webp" alt="42 Acres">
+          <div class="cancelled-card__body">
+            <div class="cancelled-card__top">
+              <div>
+                <div class="cancelled-card__title">42 Acres</div>
+                <div class="cancelled-card__location">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  Frome, Somerset, UK
+                </div>
+              </div>
+              <span class="badge" style="background:var(--error-bg);color:var(--error)">Cancelled</span>
+            </div>
+            <div class="cancelled-card__meta">
+              <div class="booking-card__meta-item">
+                <span class="booking-card__meta-label">Dates</span>
+                <span class="booking-card__meta-value">14–21 Jun 2026 · 7 nights</span>
+              </div>
+              <div class="booking-card__meta-item">
+                <span class="booking-card__meta-label">Guests</span>
+                <span class="booking-card__meta-value">2 guests · Woodland Yurt</span>
+              </div>
+              <div class="booking-card__meta-item">
+                <span class="booking-card__meta-label">Booking ref</span>
+                <span class="booking-card__meta-value">QOR-2026-4271</span>
+              </div>
+              <div class="booking-card__meta-item">
+                <span class="booking-card__meta-label">Total</span>
+                <span class="booking-card__meta-value">£2,850</span>
+              </div>
+            </div>
+          </div>
+          <div class="cancelled-card__refund">
+            <div class="cancelled-card__refund-text">A full refund of £2,850 has been paid</div>
+          </div>
+        </article>
+
+      </div><!-- /tab-cancelled -->
+
     </main>
   </div><!-- /acct-layout -->
 
@@ -566,6 +734,36 @@
       document.getElementById('tab-' + id).classList.add('is-active');
       btn.classList.add('is-active');
     }
+
+    /* ── Handle cancelled state from cancel flow ── */
+    (function() {
+      if (sessionStorage.getItem('showCancelled') !== 'true') return;
+      sessionStorage.removeItem('showCancelled'); /* clear so refresh returns to default */
+
+      /* Remove 42 Acres from upcoming */
+      const upcoming = document.getElementById('tab-upcoming');
+      const cards = upcoming.querySelectorAll('.booking-card');
+      cards.forEach(c => { if (c.querySelector('.booking-card__title')?.textContent.trim() === '42 Acres') c.remove(); });
+
+      /* Update upcoming count: 3 → 2 */
+      document.querySelector('.acct-tab.is-active .acct-tab__count').textContent = '2';
+      document.querySelector('.acct-stat__value').textContent = '2';
+
+      /* Show + activate Cancelled tab */
+      const cancelBtn = document.getElementById('tab-btn-cancelled');
+      cancelBtn.style.display = '';
+
+      /* Deactivate upcoming, activate cancelled */
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('is-active'));
+      document.querySelectorAll('.acct-tab').forEach(t => t.classList.remove('is-active'));
+      document.getElementById('tab-cancelled').classList.add('is-active');
+      cancelBtn.classList.add('is-active');
+
+      /* Update sidebar badge: 3 → 2 */
+      const badge = document.querySelector('.acct-nav__item.is-active .acct-nav__badge');
+      if (badge) badge.textContent = '2';
+    })();
+
     function toggleEnquiry(id) {
       document.querySelectorAll('.enquiry-card').forEach(card => {
         if (card.id === id) {
