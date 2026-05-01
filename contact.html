@@ -519,19 +519,105 @@
 </head>
 <body>
 
-  <!-- ===== Demo page: site header ===== -->
-  <header class="booking-header" style="position: fixed; top: 0; left: 0; right: 0; z-index: 200;">
-    <div class="booking-header__inner">
-      <a href="index.html" class="booking-header__logo">Queen of Retreats</a>
-      <nav style="display:flex; gap: var(--s6); font-size: var(--t-sm); color: var(--stone);">
-        <a href="#" style="color: var(--stone); text-decoration:none;">Retreats</a>
-        <a href="#" style="color: var(--stone); text-decoration:none;">How it works</a>
-        <a href="#" style="color: var(--stone); text-decoration:none;">About</a>
+  <!-- ===== Site header ===== -->
+  <header class="site-header is-scrolled" id="site-header">
+    <div class="site-header__inner">
+      <nav class="site-header__nav">
+
+        <div class="nav-item--mega">
+          <a href="listings.html">Retreats</a>
+          <div class="mega-menu">
+            <div class="mega-menu__inner">
+              <div class="mega-menu__footer" style="margin-top:0; margin-bottom:24px; padding-top:24px; padding-bottom:20px; border-top:none; border-bottom:1px solid var(--border);">
+                <a href="listings.html" class="mega-menu__footer-link">View all retreats →</a>
+              </div>
+              <div class="mega-menu__rail">
+                <div class="mega-menu__rail-label">Browse by category</div>
+                <div class="mega-menu__scroll">
+                  <a href="#" class="mega-cat-card">
+                    <img src="images/general/05.jpg" alt="Yoga & Meditation">
+                    <div class="mega-cat-card__overlay"><span class="mega-cat-card__name">Yoga &amp; Meditation</span></div>
+                  </a>
+                  <a href="#" class="mega-cat-card">
+                    <img src="images/general/19.jpg" alt="Detox & Cleanse">
+                    <div class="mega-cat-card__overlay"><span class="mega-cat-card__name">Detox &amp; Cleanse</span></div>
+                  </a>
+                  <a href="#" class="mega-cat-card">
+                    <img src="images/general/17.jpg" alt="Fitness & Adventure">
+                    <div class="mega-cat-card__overlay"><span class="mega-cat-card__name">Fitness &amp; Adventure</span></div>
+                  </a>
+                  <a href="#" class="mega-cat-card">
+                    <img src="images/general/01.jpg" alt="Meditation & Mindfulness">
+                    <div class="mega-cat-card__overlay"><span class="mega-cat-card__name">Meditation &amp; Mindfulness</span></div>
+                  </a>
+                  <a href="#" class="mega-cat-card">
+                    <img src="images/general/13.jpg" alt="Health & Healing">
+                    <div class="mega-cat-card__overlay"><span class="mega-cat-card__name">Health &amp; Healing</span></div>
+                  </a>
+                  <a href="#" class="mega-cat-card">
+                    <img src="images/general/04.jpg" alt="Personal Growth">
+                    <div class="mega-cat-card__overlay"><span class="mega-cat-card__name">Personal Growth</span></div>
+                  </a>
+                </div>
+              </div>
+              <div class="mega-menu__rail">
+                <div class="mega-menu__rail-label">What are you looking for?</div>
+                <div class="mega-menu__scroll">
+                  <a href="#" class="mega-intent-card">
+                    <div class="mega-intent-card__icon">🌿</div>
+                    <div class="mega-intent-card__name">Relaxation</div>
+                    <div class="mega-intent-card__desc">Slow down and restore your sense of calm</div>
+                  </a>
+                  <a href="#" class="mega-intent-card">
+                    <div class="mega-intent-card__icon">✨</div>
+                    <div class="mega-intent-card__name">Transformation</div>
+                    <div class="mega-intent-card__desc">Break old patterns and emerge renewed</div>
+                  </a>
+                  <a href="#" class="mega-intent-card">
+                    <div class="mega-intent-card__icon">🏃</div>
+                    <div class="mega-intent-card__name">Active &amp; Fitness</div>
+                    <div class="mega-intent-card__desc">Challenge your body in beautiful settings</div>
+                  </a>
+                  <a href="#" class="mega-intent-card">
+                    <div class="mega-intent-card__icon">📵</div>
+                    <div class="mega-intent-card__name">Digital Detox</div>
+                    <div class="mega-intent-card__desc">Unplug, breathe, and reconnect with yourself</div>
+                  </a>
+                  <a href="#" class="mega-intent-card">
+                    <div class="mega-intent-card__icon">🤝</div>
+                    <div class="mega-intent-card__name">Reconnect</div>
+                    <div class="mega-intent-card__desc">Find community with like-minded souls</div>
+                  </a>
+                  <a href="#" class="mega-intent-card">
+                    <div class="mega-intent-card__icon">🔮</div>
+                    <div class="mega-intent-card__name">Inner Work</div>
+                    <div class="mega-intent-card__desc">Therapy, journalling, and deep self-enquiry</div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <a href="#">Destinations</a>
+        <a href="#">Inspiration</a>
+        <a href="#">About</a>
       </nav>
+      <a href="index.html" class="site-header__logo">Queen of Retreats</a>
+      <div class="site-header__actions">
+        <button class="btn btn--ghost" style="gap:6px">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Search
+        </button>
+        <a href="signup.html" class="btn btn--ghost" style="gap:6px">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Sign In
+        </a>
+      </div>
     </div>
   </header>
 
-  <!-- ===== Demo page content ===== -->
+  <!-- ===== Page content ===== -->
   <main style="padding-top: 60px; min-height: 100vh;">
 
     <!-- Hero band -->
