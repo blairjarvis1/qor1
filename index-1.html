@@ -4059,77 +4059,15 @@
       .feat-grid { grid-template-columns: 1fr; }
       .feat-card__img { height: 200px; }
 
-      /* ══ SCROLLABLE RAILS ═══════════════════════════════════
-         Bleed to viewport edges by undoing the 20px section
-         padding with negative margins, then re-adding it as
-         scroll padding so the first card aligns with text.
-      ═══════════════════════════════════════════════════════ */
-
       /* ── Browse by category ──────────────────────────────── */
-      .cat-grid {
-        display: flex;
-        overflow-x: auto;
-        scrollbar-width: none;
-        -webkit-overflow-scrolling: touch;
-        gap: 12px;
-        margin-left: -20px;
-        margin-right: -20px;
-        padding-left: 20px;
-        padding-right: 20px;
-        padding-bottom: 4px;
-        scroll-snap-type: x proximity;
-      }
-      .cat-grid::-webkit-scrollbar { display: none; }
-      .cat-tile {
-        min-width: 150px;
-        flex-shrink: 0;
-        scroll-snap-align: start;
-      }
+      .cat-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
 
       /* ── Browse by theme ─────────────────────────────────── */
-      .theme-grid {
-        display: flex;
-        overflow-x: auto;
-        scrollbar-width: none;
-        -webkit-overflow-scrolling: touch;
-        gap: 12px;
-        margin-left: -20px;
-        margin-right: -20px;
-        padding-left: 20px;
-        padding-right: 20px;
-        padding-bottom: 4px;
-        scroll-snap-type: x proximity;
-      }
-      .theme-grid::-webkit-scrollbar { display: none; }
-      .theme-tile {
-        min-width: 140px;
-        flex-shrink: 0;
-        scroll-snap-align: start;
-      }
+      .theme-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
 
       /* ── Destinations ────────────────────────────────────── */
-      .dest-grid {
-        display: flex;
-        overflow-x: auto;
-        scrollbar-width: none;
-        -webkit-overflow-scrolling: touch;
-        gap: 12px;
-        margin-left: -20px;
-        margin-right: -20px;
-        padding-left: 20px;
-        padding-right: 20px;
-        padding-bottom: 4px;
-        scroll-snap-type: x proximity;
-      }
-      .dest-grid::-webkit-scrollbar { display: none; }
-      .dest-tile {
-        min-width: 200px;
-        flex-shrink: 0;
-        scroll-snap-align: start;
-        aspect-ratio: 3 / 4 !important;
-      }
-      .dest-tile:first-child { min-width: 220px; }
-      .dest-tile__name { font-size: 18px; }
+      .dest-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .dest-tile, .dest-tile:first-child { aspect-ratio: 3 / 4; }
       .dest-tile:first-child .dest-tile__name { font-size: 20px; }
 
       /* ══ STACKING INFO SECTIONS ═════════════════════════════ */
