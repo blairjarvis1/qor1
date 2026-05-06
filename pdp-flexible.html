@@ -1169,6 +1169,298 @@
     .card-pgm-tip--center .card-pgm-box::after { right: auto; left: 50%; transform: translateX(-50%); }
     .card-pgm-tip--center .card-pgm-box::before { right: auto; left: 50%; transform: translateX(-50%); }
 
+    /* ══════════════════════════════════════════════════════════
+       MOBILE — max-width: 767px
+    ══════════════════════════════════════════════════════════ */
+    @media (max-width: 767px) {
+
+      /* ── Mobile Nav Drawer ───────────────────────────────── */
+      .mobile-nav {
+        position: fixed;
+        top: 0; right: -100%;
+        width: min(300px, 85vw);
+        height: 100%;
+        background: var(--white);
+        z-index: 500;
+        display: flex;
+        flex-direction: column;
+        padding: var(--s6);
+        transition: right 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: -4px 0 32px rgba(0,0,0,0.14);
+      }
+      .mobile-nav.is-open { right: 0; }
+      .mobile-nav__overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.45);
+        z-index: 499;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+      }
+      .mobile-nav__overlay.is-open { opacity: 1; pointer-events: auto; }
+      .mobile-nav__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: var(--s6);
+        border-bottom: 1px solid var(--border);
+        margin-bottom: var(--s6);
+      }
+      .mobile-nav__logo { font-family: var(--serif); font-size: 18px; color: var(--ink); text-decoration: none; }
+      .mobile-nav__close {
+        background: none; border: none;
+        font-size: 22px; color: var(--stone);
+        cursor: pointer; padding: var(--s2); line-height: 1;
+      }
+      .mobile-nav__links { display: flex; flex-direction: column; gap: 0; flex: 1; }
+      .mobile-nav__links a {
+        font-family: var(--serif);
+        font-size: var(--t-xl);
+        color: var(--ink);
+        font-weight: 400;
+        padding: var(--s4) 0;
+        border-bottom: 1px solid var(--border);
+        text-decoration: none;
+      }
+      .mobile-nav__actions {
+        padding-top: var(--s6);
+        display: flex;
+        flex-direction: column;
+        gap: var(--s3);
+      }
+
+      /* ── Header ──────────────────────────────────────────── */
+      .site-header__inner {
+        padding: 0 var(--s5);
+        grid-template-columns: auto 1fr auto;
+      }
+      .site-header__nav { display: none; }
+      .site-header__actions { display: none; }
+      .site-header__logo { font-size: 18px; text-align: left; }
+      .site-header__hamburger {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: none; border: none;
+        color: rgba(255,255,255,0.9);
+        cursor: pointer;
+        padding: var(--s2);
+        margin-left: auto;
+      }
+      .site-header.is-scrolled .site-header__hamburger { color: var(--ink); }
+      .site-header.mega-open .site-header__hamburger { color: var(--ink) !important; }
+
+      /* ── Hero ────────────────────────────────────────────── */
+      .hero { min-height: 85vh; }
+      .hero__center {
+        bottom: 130px;
+        padding: 0 var(--s5);
+      }
+      .hero__title { font-size: clamp(26px, 8vw, 42px); }
+      .hero__subtitle { font-size: var(--t-sm); }
+      .hero__meta { margin-top: var(--s4); gap: var(--s3); flex-wrap: wrap; justify-content: center; }
+
+      /* Hero booking bar — mobile simplified */
+      .booking-bar {
+        flex-direction: column;
+        gap: var(--s3);
+        padding: var(--s5) var(--s5) var(--s6);
+        background: rgba(20,20,18,0.72);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+      .booking-bar__price { flex-direction: row; align-items: baseline; gap: var(--s2); }
+      .booking-bar__divider { display: none; }
+      .booking-bar__dates { display: none !important; }
+      .booking-bar__secondary-cta { display: none !important; }
+      .booking-bar__cta {
+        padding-top: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--s2);
+      }
+      .booking-bar__cta .card-pgm-tip { display: none; }
+      .booking-bar .btn--lg { width: 100%; justify-content: center; text-align: center; }
+
+      /* ── Trust bar ───────────────────────────────────────── */
+      .trust-bar__inner {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--s3) var(--s4);
+        padding: 0 var(--s4);
+        justify-items: start;
+      }
+      .trust-bar__item { font-size: var(--t-xs); }
+
+      /* ── Subnav ──────────────────────────────────────────── */
+      .rdp-subnav { top: 52px; }
+      .rdp-subnav__link { padding: var(--s3) var(--s3); font-size: 12px; }
+
+      /* ── Breadcrumb ──────────────────────────────────────── */
+      .rdp-breadcrumb { padding: var(--s3) var(--s4); }
+
+      /* ── Gallery ─────────────────────────────────────────── */
+      .rdp-gallery { padding: 0 0 var(--s5); }
+      .rdp-gallery__grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
+        height: 260px;
+        border-radius: 0;
+      }
+      .rdp-gallery__main { grid-row: 1; }
+      .rdp-gallery__thumb { display: none; }
+      .rdp-gallery__view-all { bottom: var(--s3); right: var(--s3); }
+
+      /* ── Page layout ─────────────────────────────────────── */
+      .rdp-layout { padding: 0 var(--s4) var(--s8); gap: var(--s6); }
+      .rdp-section { padding: var(--s6) 0; scroll-margin-top: 96px; }
+      .rdp-section__title { font-size: var(--t-xl); }
+
+      /* ── Title block ─────────────────────────────────────── */
+      .rdp-title-block { padding: var(--s4) var(--s4) var(--s4); }
+      .rdp-h1 { font-size: 28px; }
+      .rdp-tagline { font-size: var(--t-sm); }
+      .rdp-title-meta { gap: var(--s3); }
+
+      /* ── At a glance ─────────────────────────────────────── */
+      .rdp-glance { grid-template-columns: 1fr 1fr; gap: var(--s3); margin: var(--s5) 0; }
+      .rdp-glance__item { padding: var(--s4); }
+
+      /* ── Timeline ────────────────────────────────────────── */
+      .rdp-timeline__item { grid-template-columns: 44px 1fr; }
+
+      /* ── Editorial ───────────────────────────────────────── */
+      .rdp-editorial { padding: var(--s5); }
+      .rdp-editorial__lead { font-size: var(--t-base); }
+      .rdp-editorial__body { font-size: var(--t-sm); }
+
+      /* ── Calendar — single month on mobile ───────────────── */
+      #page-cal .bdc__months { grid-template-columns: 1fr; }
+      #page-cal .bdc__sep,
+      #page-cal-right { display: none; }
+      #page-cal .bdc__month { padding: 16px; }
+
+      /* ── Room cards ──────────────────────────────────────── */
+      .rdp-room-cards { grid-template-columns: 1fr; }
+      .rdp-room-carousel { aspect-ratio: 4 / 3; }
+
+      /* ── Facilities ──────────────────────────────────────── */
+      .rdp-facilities { grid-template-columns: 1fr; }
+
+      /* ── Host cards ──────────────────────────────────────── */
+      .rdp-host-cards { grid-template-columns: 1fr; }
+
+      /* ── Food ────────────────────────────────────────────── */
+      .rdp-food-grid { grid-template-columns: 1fr; gap: var(--s5); }
+
+      /* ── Reviews ─────────────────────────────────────────── */
+      .rdp-review-summary {
+        grid-template-columns: 1fr;
+        gap: var(--s4);
+        padding: var(--s5);
+      }
+      .rdp-review-score { font-size: 44px; }
+      .rdp-reviews-grid { grid-template-columns: 1fr; }
+
+      /* ── Location ────────────────────────────────────────── */
+      .rdp-travel-info { flex-direction: column; gap: var(--s4); }
+      .rdp-neighbourhood-grid { grid-template-columns: 1fr; }
+      .rdp-skyscanner {
+        flex-direction: column;
+        gap: var(--s4);
+        padding: var(--s5);
+        text-align: center;
+      }
+      .rdp-skyscanner__logo { font-size: 16px; }
+      .rdp-skyscanner__btn { width: 100%; }
+
+      /* ── Trust grid ──────────────────────────────────────── */
+      .rdp-trust-grid { grid-template-columns: 1fr 1fr; gap: var(--s3); }
+      .rdp-trust-item { padding: var(--s4) var(--s3); }
+      .rdp-trust-item__desc { font-size: var(--t-xs); }
+
+      /* ── Related ─────────────────────────────────────────── */
+      .rdp-related-grid {
+        display: flex;
+        overflow-x: auto;
+        gap: var(--s4);
+        scrollbar-width: none;
+        margin: 0 calc(-1 * var(--s4));
+        padding: 0 var(--s4);
+      }
+      .rdp-related-grid::-webkit-scrollbar { display: none; }
+      .rdp-related-card { min-width: 260px; flex-shrink: 0; }
+
+      /* ── Footer ──────────────────────────────────────────── */
+      footer > div > div:first-child {
+        grid-template-columns: 1fr !important;
+        gap: 32px !important;
+      }
+      footer { padding: 48px 24px 160px !important; }
+
+      /* ── Bottom bar — mobile redesign ────────────────────── */
+      #pdp-bottom-bar {
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100% !important;
+        transform: translateY(calc(100% + 0px)) !important;
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+        border-bottom: none;
+        border-top: 1px solid var(--border);
+        box-shadow: 0 -4px 24px rgba(0,0,0,0.10);
+      }
+      #pdp-bottom-bar.is-visible {
+        transform: translateY(0) !important;
+      }
+      .pdp-bar__inner {
+        padding: var(--s3) var(--s4) var(--s4);
+        gap: var(--s3);
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      /* Hide date / room / guest fields on mobile bar */
+      #pdp-bottom-bar .pdp-bar__field,
+      #pdp-bottom-bar .pdp-bar__divider { display: none; }
+      /* Price takes left side */
+      .pdp-bar__price-block { flex: 1; min-width: 0; }
+      .pdp-bar__amount { font-size: 22px; }
+      /* CTAs fill the right side */
+      .pdp-bar__ctas { margin-left: 0; width: 100%; }
+      .pdp-bar__cta-wrap {
+        flex-direction: row;
+        align-items: center;
+        gap: var(--s2);
+        width: 100%;
+      }
+      .pdp-bar__cta-wrap .card-pgm-tip { display: none; }
+      #pdp-bar-enquire {
+        display: inline-flex !important;
+        flex: 1;
+        justify-content: center;
+        height: 44px !important;
+        font-size: var(--t-sm) !important;
+      }
+      #pdp-bar-book {
+        flex: 2;
+        justify-content: center;
+        height: 44px !important;
+        font-size: var(--t-sm) !important;
+        border-radius: var(--r-md) !important;
+      }
+      .pdp-bar__note { display: none; }
+
+      /* Hide the drop-up date picker on mobile (in-page calendar handles it) */
+      #pdp-bar-datepicker { display: none !important; }
+    }
+
+    /* ── Hamburger — always hidden on desktop ────────────── */
+    .site-header__hamburger { display: none; }
+
   </style>
 </head>
 <body>
@@ -1276,8 +1568,35 @@
           Sign In
         </a>
       </div>
+
+      <!-- Hamburger — mobile only -->
+      <button class="site-header__hamburger" id="nav-toggle" aria-label="Open menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
     </div>
   </header>
+
+  <!-- ===== Mobile Nav Drawer ===== -->
+  <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+    <div class="mobile-nav__header">
+      <a href="index.html" class="mobile-nav__logo">Queen of Retreats</a>
+      <button class="mobile-nav__close" id="mobile-nav-close" aria-label="Close menu">✕</button>
+    </div>
+    <nav class="mobile-nav__links">
+      <a href="listings.html">Retreats</a>
+      <a href="#">Destinations</a>
+      <a href="#">Inspiration</a>
+      <a href="#">About</a>
+    </nav>
+    <div class="mobile-nav__actions">
+      <a href="signup.html" class="btn btn--outline btn--lg btn--full">Sign In</a>
+    </div>
+  </div>
+  <div class="mobile-nav__overlay" id="mobile-nav-overlay"></div>
 
   <!-- ===== Hero ===== -->
   <section class="hero">
@@ -3022,6 +3341,39 @@
   </div>
 
   <script src="mega-menu.js"></script>
+
+  <script>
+    /* ── Mobile nav hamburger ────────────────────────── */
+    (function() {
+      const toggle  = document.getElementById('nav-toggle');
+      const nav     = document.getElementById('mobile-nav');
+      const overlay = document.getElementById('mobile-nav-overlay');
+      const close   = document.getElementById('mobile-nav-close');
+      if (!toggle) return;
+
+      function openNav() {
+        nav.classList.add('is-open');
+        overlay.classList.add('is-open');
+        nav.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeNav() {
+        nav.classList.remove('is-open');
+        overlay.classList.remove('is-open');
+        nav.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+
+      toggle.addEventListener('click', openNav);
+      close.addEventListener('click', closeNav);
+      overlay.addEventListener('click', closeNav);
+    })();
+
+    /* ── Mobile: in-page calendar right column hidden via CSS ── */
+    // No extra JS needed — CSS hides #page-cal-right at ≤767px.
+    // Bottom-bar show/hide uses the existing .is-visible class toggle;
+    // mobile transform overrides are handled entirely in CSS.
+  </script>
 
 
 </body>
